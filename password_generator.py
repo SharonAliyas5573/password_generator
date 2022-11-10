@@ -15,6 +15,8 @@ def passwords():
    random.shuffle(password)
 
    password = "".join(password)
+   
+   print("generatingg......")
    print("Your strong password is  :" + password)
 
 
@@ -28,7 +30,7 @@ if opt=='Yes' or opt=='yes':
 
   if opt_1 == 'yes' or opt_1 =='YES':
 
-    print("generatingg......")
+    
     passwords()
   elif opt=='No' or 'no':
     print("OK,Have a good day :)")

@@ -1,6 +1,8 @@
-
+import pyfiglet
 import random
 import string
+
+
 
 characters = list(string.ascii_letters + string.ascii_uppercase + string.ascii_lowercase + string.digits + string.punctuation)
 def passwords():
@@ -19,6 +21,11 @@ def passwords():
    print("generatingg......")
    print("Your strong password is  :" + password)
 
+name = ("Password Generator")
+
+header = pyfiglet.figlet_format(name,font='alphabet')
+
+print(header)
 
 opt = input("DO you want to Generate password [Yes/no] :")
 

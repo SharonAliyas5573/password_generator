@@ -7,7 +7,7 @@ Features
 - Check the strength of a given password
 
 ## Demo
-- [click me]()
+- [click me](http://sharonaliyas5573.pythonanywhere.com/)
 ## Requirements
 
     Python 3.x
@@ -26,7 +26,7 @@ Features
 
 3.Run the program
 
-    python password_generator.py
+    python app.py
 
 The application should now be running on http://localhost:5000
 

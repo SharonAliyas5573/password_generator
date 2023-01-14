@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="/static/img/ico.svg">
+    <title>passwordGenerator</title>
+    <style>
+@font-face {
+  font-family: 'LOCKDOWN';
+  src: URL('/static/fonts/LOCKDOWN.ttf') format('truetype');
+}
+     body{
+      background-image: url( '/static/img/bg.svg' );
+      background-repeat: no-repeat;
+      
+      background-size: cover;
+      }
+        #heading {
+        text-align: center;
+        font-size: 80px;
+        color: #D9E5D6;
+        font-weight: 1000;
+        font-family: 'LOCKDOWN', sans-serif;
+        margin: 20px auto;
+      }
+  
+
+      .card {
+        width: 500px;
+        margin: 150px auto;
+        padding: 20px;
+        text-align: center;
+        background-color: #f2f2f2;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #ccc;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+      }
+      .inputcontainer {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+    textarea{
+      resize: none;
+      border-radius: 12px;
+
+    }
+    
+      #generate-button,button[type="submit"] {
+        background-color: #982870;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content:center;
+        position: relative;
+        margin: 10px auto;
+        font-weight: 100;
+        font-family: 'LOCKDOWN', sans-serif;
+      }
+      #generate-button:hover{
+        background-color: #c62368;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;  
+      }
+      #generate-button svg {
+        margin-right: 5px;
+      }
+
+      #output-container {
+  position: relative;
+ 
+   /* make the container a relative positioning context for the icon */
+}
+
+.copy-icon {
+  width: 30px;
+  height: 30px; 
+
+  position: absolute; 
+
+  right:5px;
+
+  cursor:pointer  ; 
+}
+
+input.input-box {
+    text-align: center;
+    background-color: #cf3b79;  /* Change the background color */
+    border: none; /* remove the border */
+    border-radius: 12px; /* Add rounded corners */
+    font-size: 16px; /* change the font size */
+    padding: 12px 20px; /* Add padding to the input field */
+    margin: 8px 0; /* Add margin to the input field */
+    width: 10%; /* Make the input field take up the full width of its container */
+}
+input.input-box:focus {
+    outline: none; /* Remove the default focus outline */
+    box-shadow: 0 0 10px #333; /* Add a custom box-shadow */
+}
+
+#output {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 20px;
+    color: #333;
+    font-weight: bolder;
+    text-align: center;
+}
+
+
+#output::selection {
+   
+    content: " Copied!";
+}
+input[type="number"] {
+  -webkit-appearance: textfield;
+     -moz-appearance: textfield;
+          appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+}
+#generate-button:active:after,button[type="submit"]:active::after{
+  box-shadow: 0 0 0 0 rgb(237, 33, 33);
+  position: absolute;
+  border-radius: 1em;
+  left: 0;
+  top:0;
+  opacity: 1;
+  transition: 0s;
+}
+#generate-button:after ,button[type="submit"]:after{
+  content: "";
+  display: block;
+  position: absolute;
+  border-radius: 1em;
+  left: 0;
+  top:0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.5s;
+  box-shadow: 0 0 10px 40px white;
+}
+
+#generate-button:active ,button[type="submit"]:active{
+  top: 1px;
+}
+
+    </style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$(document).ready(function() {
+  $("#myNumber").change(function() {
+      var len = $("#myNumber").val();
+      $.ajax({
+          type: "POST",
+          url: "/",
+          data: { "len": len },
+          success: function(data) {
+              $("#password").text(data.password);
+          }
+      });
+  });
+});
+
+</script>
+<script>$("input[type='number']").css("color", "blue");
+</script>
+    <script>
+ 
+
+        function copyToClipboard() {
+  // Get the textarea element
+  var copyText = document.getElementById("output");
+  // Select the text inside the textarea
+  copyText.select();
+  // Copy the text inside the textarea
+  document.execCommand("copy");
+        }
+        </script>
+  
+     
+      
+      
+</head>
+<body>
+  <h1 id="heading" align="center">Password Generator </h1>
+
+    <div class="card">
+        <div class="inputcontainer">
+          <form id="generate-form" action="{{ url_for('generate')}}" method="POST"">
+              <label for="len"><b>Length of the Password :</b></label>
+              <input type="number" name="len" min="1" max="20" value="8"  class="input-box" id="myNumber">
+            
+            <div>
+            <button id="generate-button" type="submit" value="submit">
+              <svg fill="#000000" width="24" height="30" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+
+                <g id="Change_password">
+                
+                <path d="M464.4326,147.54a9.8985,9.8985,0,0,0-17.56,9.1406,214.2638,214.2638,0,0,1-38.7686,251.42c-83.8564,83.8476-220.3154,83.874-304.207-.0088a9.8957,9.8957,0,0,0-16.8926,7.0049v56.9a9.8965,9.8965,0,0,0,19.793,0v-34.55A234.9509,234.9509,0,0,0,464.4326,147.54Z"/>
+                
+                <path d="M103.8965,103.9022c83.8828-83.874,220.3418-83.8652,304.207-.0088a9.8906,9.8906,0,0,0,16.8926-6.9961v-56.9a9.8965,9.8965,0,0,0-19.793,0v34.55C313.0234-1.3556,176.0547,3.7509,89.9043,89.9012A233.9561,233.9561,0,0,0,47.5674,364.454a9.8985,9.8985,0,0,0,17.56-9.1406A214.2485,214.2485,0,0,1,103.8965,103.9022Z"/>
+                
+                <path d="M126.4009,254.5555v109.44a27.08,27.08,0,0,0,27,27H358.5991a27.077,27.077,0,0,0,27-27v-109.44a27.0777,27.0777,0,0,0-27-27H153.4009A27.0805,27.0805,0,0,0,126.4009,254.5555ZM328,288.13a21.1465,21.1465,0,1,1-21.1465,21.1464A21.1667,21.1667,0,0,1,328,288.13Zm-72,0a21.1465,21.1465,0,1,1-21.1465,21.1464A21.1667,21.1667,0,0,1,256,288.13Zm-72,0a21.1465,21.1465,0,1,1-21.1465,21.1464A21.1667,21.1667,0,0,1,184,288.13Z"/>
+                
+                <path d="M343.6533,207.756V171.7538a87.6533,87.6533,0,0,0-175.3066,0V207.756H188.14V171.7538a67.86,67.86,0,0,1,135.7208,0V207.756Z"/>
+                
+                </g>
+                
+                </svg>
+              GENERATE</button>
+            </form>
+            </div>
+          </div>
+          <div id="output-container">
+            <textarea  id="output" readonly cols="50" rows="2" >{{value}}</textarea>
+            
+              <svg class="copy-icon" onclick="copyToClipboard()"  viewBox="0 0 30 30"  version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+               
+                
+                <g id="icomoon-ignore">
+                </g>
+                <path d="M27.845 7.385l-5.384-5.384h-11.845v4.307h-6.461v23.69h17.229v-4.307h6.461v-18.306zM22.461 3.524l3.861 3.861h-3.861v-3.861zM5.232 28.922v-21.537h9.692v5.384h5.384v16.153h-15.076zM16 7.831l3.861 3.861h-3.861v-3.861zM21.384 24.615v-12.922l-5.384-5.384h-4.307v-3.231h9.692v5.384h5.384v16.153h-5.384z" fill="#000000">
+                
+                </path>
+                </svg>
+                <button id="generate-button" type="button">
+                  <svg height="24" width="30" version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+	 viewBox="0 0 512 512"  xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#000000;}
+</style>
+<g>
+	<path class="st0" d="M493.118,60.602c-40.138,17.719-93.777,20.322-143.881-0.447C324.872,50.055,273.523,25.223,255.999,0
+		c-17.521,25.223-68.871,50.055-93.236,60.154C112.657,80.924,59.021,78.32,18.88,60.602c-7.203-3.182-15.096,2.08-15.096,9.955
+		C3.784,493.475,255.999,512,255.999,512s252.217-18.525,252.217-441.443C508.216,62.682,500.323,57.42,493.118,60.602z
+		 M89.155,125.33c32.033,0,63.305-6.23,92.947-18.518c16.129-6.686,46.719-20.51,73.896-39.258
+		c27.178,18.748,57.77,32.572,73.898,39.258c29.647,12.289,60.918,18.52,92.949,18.518c11.256,0,22.45-0.801,33.428-2.367
+		C439.72,416.264,284.815,456.182,255.999,461.07c-28.814-4.889-183.72-44.807-200.273-338.108
+		C66.704,124.531,77.899,125.33,89.155,125.33z"/>
+	<path class="st0" d="M255.999,409.279c29.94-8.686,119.684-49.879,144.676-234.27c-30.955-2.328-61.182-9.543-90.117-21.539
+		c-12.354-5.121-32.789-14.211-54.559-26.502c-21.768,12.291-42.201,21.381-54.556,26.502
+		c-28.932,11.994-59.156,19.209-90.117,21.539C136.317,359.4,226.06,400.594,255.999,409.279z"/>
+</g>
+</svg>
+                  Check Password Strength</button>
+          </div>
+          
+        
+      
+</body>
+</html>
+

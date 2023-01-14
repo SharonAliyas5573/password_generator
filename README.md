@@ -1,17 +1,47 @@
+Password Generator and Strength Checker
 
-# Password Generator 
+This is a simple application built using Python Flask that allows users to generate and check the strength of their passwords.
+Features
 
-Created a random password generator in Python.
-We know that passwords are a real security threat. To keep your account safe and prevent your password from being hacked you have to make your password hard enough that nobody can guess. The Password generator tool creates a random  password for users that helps them to create a strong password which provides greater security.
+    Generate secure, random passwords of any desired length
+    Check the strength of a given password
+
+Requirements
+
+    Python 3.x
+    Flask
+  
+
+Installation
+
+    Clone the repository
+
+git clone 
+
+
+    Install the required packages
+
+pip install -r requirements.txt
 
 
 
+    Run the program
 
-## Project
+python password generator
 
-This project is to create a password generator using python.
-In this project, the user has to select the password length.  It will show the generated password below.
+The application should now be running on http://localhost:5000
+Usage
+
+    To generate a password, visit http://localhost:5000/generate and enter the desired length of the password.
+    To check the strength of a password, visit http://localhost:5000/check and enter the password. The application will return a score indicating the strength of the password.
 
 
+    The passwords generated are cryptographically random and are not stored in any way, so the passwords generated cannot be retrieved.
+    The strength checker uses a combination of checks including length, complexity, and common patterns to determine the strength of a password.
 
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+Contribution
+
+Feel free to submit a pull request or open an issue if you find any bug or want to add any feature.
+License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details.
